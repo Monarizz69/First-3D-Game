@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://xrqx2hli6gre"]
+
+[ext_resource type="Script" uid="uid://cvlbuuajecqrs" path="res://scripts/mob.gd" id="1_bsing"]
+[ext_resource type="PackedScene" uid="uid://bm7eebipqxqmx" path="res://assets/art/Slime Enemy.glb" id="2_bsing"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_d4cuo"]
+height = 1.125
+
+[node name="Mob" type="CharacterBody3D" groups=["mob"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_bsing")
+
+[node name="Pivot" type="Node3D" parent="."]
+
+[node name="Root Scene" parent="Pivot" instance=ExtResource("2_bsing")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000232041, 0.5625, -0.0460449)
+shape = SubResource("CylinderShape3D_d4cuo")
+
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-1.13672, -1, -1.88, 2.27345, 2, 3.75999)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
